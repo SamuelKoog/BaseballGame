@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SingleInning extends Game
+public class SingleInning
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -60,7 +60,40 @@ public class SingleInning extends Game
                 int pwr = (int) (Math.random()*100) + 1;
                 int spd = 200 - hit - pwr;
                 Batter Javier = new Batter(int hit, int pwr, int spd);
-                atBat(Lester, Javier);
+                String result = atBat(Lester, Javier);
+                if(result.equals("out")) {
+                    totalOuts++;
+                } else if(result.equals("hit")) {
+                    int type = (int) Math.random(pwr+20);
+                    if(type<10) {
+                        System.out.println("Groundout!");
+                        totalOuts++;
+                    } else if(type < 60) {
+                        System.out.println("Single!");
+                        single();
+                    } else if(type < 90) {
+                        int fly = Math.random(100);
+                        if(fly<25) {
+                            System.out.println("Fly out!");
+                            totalOuts++;
+                        } else {
+                            System.out.println("Double!");
+                            duble();
+                        }
+                    } else if(type < 100) {
+                        System.out.println("Triple!");
+                    } else if(type < 120) {
+                        if(fly<25) {
+                            System.out.println("Fly out!");
+                            totalOuts++;
+                        } else {
+                            System.out.println("Home run!");
+                            homeRun();
+                        }
+                    }
+
+                } else if(result.equals("walk")) {
+                }
             }
 
         }
@@ -160,3 +193,5 @@ public class SingleInning extends Game
         }
     }
 
+
+}
