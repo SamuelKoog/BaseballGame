@@ -65,26 +65,73 @@ public class SingleInning extends Game
 
         }
 
-        public void atBat() {
+        public String atBat() {
             int strikes=0;
             int balls=0;
             while(strike<3 && balls<4) {
-                if(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of range then ball ++ 
                     if((int) Math.random() * 100 + 1 < ctrl) {
-                        while(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                        while(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {
                             int pitchX = math.Random()*100;
                             int pitchY = math.Random()*100;
                         }
                     }
                 }
+                
                 Scanner swing = newScanner(System.in);
                 System.out.println("Swing? ");
                 String choice = swing.nextString();
-                if(choice.equals("Yes")) {
+                if(choice.toUpperCase.equals("YES")) {
                     System.out.println("Where? ");
                     int loc = swing.nextInt();
+                    if(loc < 1 || loc > 9){
+                        System.out.printl("Invalid location. choose a number 1-9");
+                    }
+                    else if(loc == pitch
                 }
+                else if(choice.toUpperCase.equals("NO")){
+                    
+                }
+                
+                if(loc /= pitchLoc){
+                    }
+                
+                
             }
+        }
+        
+        public int gridConversion(int pitchX, int pitchY){
+            int px = pitchX;
+            int py = pitchY;
+            int pitchLoc = 0;
+            if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
+                return 1;
+            }
+            else if((px >= 40 && px < 60) && (py >= 20 && py < 40)){
+                return 2;
+            }
+            else if((px >= 60 && px < 80) && (py >= 20 && py < 40)){
+                return 3;
+            }
+            else if((px >= 20 && px < 40) && (py >= 40 && py < 60)){
+                return 4;
+            }
+            else if((px >= 40 && px < 60) && (py >= 40 && py < 60)){
+                return 5;
+            }
+            else if((px >= 60 && px < 80) && (py >= 40 && py < 60)){
+                return 6;
+            }
+            else if((px >= 20 && px < 40) && (py >= 60 && py <= 80)){
+                return 7;
+            }
+            else if((px >= 20 && px < 60) && (py >= 60 && py <= 80)){
+                return 8;
+            }
+            else{
+                return 9;
+            }
+          
         }
 
         public void printField() {
