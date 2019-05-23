@@ -1,5 +1,5 @@
-    import java.util.ArrayList;
-    import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * Write a description of class SingleInning here.
  *
@@ -64,18 +64,29 @@ public class SingleInning extends Game
             }
 
         }
-        public void atBat() {
 
-            if(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
-                if((int) Math.random() * 100 + 1 < ctrl) {
-                    while(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
-                        int pitchX = math.Random()*100;
-                        int pitchY = math.Random()*100;
+        public void atBat() {
+            int strikes=0;
+            int balls=0;
+            while(strike<3 && balls<4) {
+                if(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                    if((int) Math.random() * 100 + 1 < ctrl) {
+                        while(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                            int pitchX = math.Random()*100;
+                            int pitchY = math.Random()*100;
+                        }
                     }
                 }
+                Scanner swing = newScanner(System.in);
+                System.out.println("Swing? ");
+                String choice = swing.nextString();
+                if(choice.equals("Yes")) {
+                    System.out.println("Where? ");
+                    int loc = swing.nextInt();
+                }
             }
-            
         }
+
         public void printField() {
             System.out.println("   " + "O" + "   ");
             System.out.println("                 ");
@@ -87,6 +98,18 @@ public class SingleInning extends Game
             System.out.println("                 ");
             System.out.println("   " + "O" + "   ");
         }
-        public void Diagram();
+
+        public void printDiagram(){
+            System.out.println("|     |     |     |");
+            System.out.println("|  1  |  2  |  3  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----|-----|-----|");
+            System.out.println("|  4  |  5  |  6  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----|-----|-----|");
+            System.out.println("|  7  |  8  |  9  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|     |     |     |");
+        }
     }
 
