@@ -1,4 +1,5 @@
-
+    import java.util.ArrayList;
+    import java.util.Scanner;
 /**
  * Write a description of class SingleInning here.
  *
@@ -30,29 +31,62 @@ public class SingleInning extends Game
         // put your code here
         return x + y;
     }
-import java.util.ArrayList;
-import java.util.Scanner;
-public class SingleInning extends Game
-{
-    private int totalOuts;
-    private int runs = 0;
-    private ArrayList<Batter> order = new ArrayList<Batter>(9);
-    public SingleInning() {
-        totalOuts = 0;
-        runs = 0;
+    public class SingleInning extends Game
+    {
+        private int[][] grid;
+        private int totalOuts;
+        private int runs = 0;
+        private ArrayList<Batter> order = new ArrayList<Batter>(9);
+        public SingleInning() {
+            totalOuts = 0;
+            runs = 0;
+        }
+
+        public int getOuts() {
+            return totalOuts;
+        }
+
+        public int getRuns() {
+            return runs;
+        }
+
+        public void newGame() {
+            int arm = (int) (Math.random()*100) + 1;
+            int ctrl = (int) (Math.random()*100) + 1;
+            int stf = 200 - arm - ctrl;
+            Pitcher Lester = new Pitcher(int arm, int ctrl, int stf);
+            while(totalOuts<3) {
+                int hit = (int) (Math.random()*100) + 1;
+                int pwr = (int) (Math.random()*100) + 1;
+                int spd = 200 - hit - pwr;
+                Batter Javier = new Batter(int hit, int pwr, int spd);
+                atBat(Lester, Javier);
+            }
+
+        }
+        public void atBat() {
+
+            if(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                if((int) Math.random() * 100 + 1 < ctrl) {
+                    while(pitchX < 20 || pitchX > 70 || pitchY < 20 || pitchY > 70) {
+                        int pitchX = math.Random()*100;
+                        int pitchY = math.Random()*100;
+                    }
+                }
+            }
+            
+        }
+        public void printField() {
+            System.out.println("   " + "O" + "   ");
+            System.out.println("                 ");
+            System.out.println("                 ");
+            System.out.println("                 ");
+            System.out.println("O       O       O");
+            System.out.println("                 ");
+            System.out.println("                 ");
+            System.out.println("                 ");
+            System.out.println("   " + "O" + "   ");
+        }
+        public void Diagram();
     }
-    public int getOuts() {
-        return totalOuts;
-    }
-    public int getRuns() {
-        return runs;
-    }
-    public void newGame() {
-        int arm = (int) (Math.random()*100) + 1;
-        int ctrl = (int) (Math.random()*100) + 1;
-        int stf = 200 - arm - ctrl;
-        pitcher Lester = 
-        
-    }
-}
 
