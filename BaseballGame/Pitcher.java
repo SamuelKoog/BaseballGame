@@ -1,33 +1,12 @@
-
-/**
- * Write a description of class Pitcher here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class Pitcher extends SingleInning
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Pitcher
-     */
-    public Pitcher()
+    private int arm;
+    private int ctrl;
+    private int stf;
+    public Pitcher(int arm1, int ctrl1, int stf1)
     {
-        // initialise instance variables
-        x = 0;
-    }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+        arm = arm1;
+        ctrl = ctrl1;
+        stf = stf1;
     }
 }
