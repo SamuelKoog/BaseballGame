@@ -23,43 +23,47 @@ public class SingleInning
     public void newGame() {
         System.out.println("Play ball!");
         int batterPos = 0; //which batter up
-        int arm = (int) (Math.random()*100) + 1;
-        int ctrl = (int) (Math.random()*100) + 1;
+        int arm = (int) (Math.random()*50) + 51;
+        int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
             printField();
-            int hit = (int) (Math.random()*100) + 1;
-            int pwr = (int) (Math.random()*100) + 1;
+            int hit = (int) (Math.random()*50) + 51;
+            int pwr = (int) (Math.random()*50) + 51;
             int spd = 200 - hit - pwr; //speed of batter
             Batter Javier = new Batter(hit, pwr, spd);
+            System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: Javier Baez (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
+            
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
                 System.out.println("out");
                 totalOuts++;
             } else if(result.equals("hit")) {
                 int type = (int) (Math.random()*(pwr+20));
-                int fly = (int) Math.random()*100;
+                int fly = (int) (Math.random()*100);
+                System.out.println(fly);
                 if(type<10) {
                     System.out.println("Groundout!");
                     totalOuts++;
-                } else if(type < 60) {
+                } else if(type < 40) {
                     System.out.println("Single!");
                     single();
-                } else if(type < 90) {
-                    if(fly<25) {
+                } else if(type < 70) {
+                    if(fly<20) {
                         System.out.println("Fly out!");
                         totalOuts++;
                     } else {
                         System.out.println("Double!");
                         duble();
                     }
-                } else if(type < 100) {
+                } else if(type < 80) {
                     System.out.println("Triple!");
-                } else if(type < 120) {
-                    if(fly<25) {
+                    triple();
+                } else if(type < 100) {
+                    if(fly<20) {
                         System.out.println("Fly out!");
                         totalOuts++;
                     } else {
@@ -167,7 +171,6 @@ public class SingleInning
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
-            System.out.println(pitchX);
             if(pitchX < 30 || pitchX > 70 || pitchY < 30 || pitchY >70) {   //if pitch is out of range then ball ++ 
                 if((int) (Math.random() * 120) < Lester.getCtrl()) {
                     while(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {
@@ -193,6 +196,7 @@ public class SingleInning
             String choice = swing.next();
             if(choice.toUpperCase().equals("YES")) {
                 System.out.println("Where? ");
+                printDiagram();
                 int loc = swing.nextInt();
                 if(loc < 1 || loc > 9){
                     System.out.println("Invalid location. choose a number 1-9");
@@ -200,12 +204,12 @@ public class SingleInning
                 else if(loc == pitch){
                     return "hit";
                 } else if(loc != pitch) {
-                    System.out.println("strik");
+                    System.out.println("strike");
                     strikes++;
                 }
             }
-            else if(choice.toUpperCase().equals("NO") && (pitch >= 1 && pitch <=9)){
-                if((pitch >= 1 || pitch <=9)) {
+            else if(choice.toUpperCase().equals("NO")){
+                if((pitch >= 1 && pitch <=9)) {
                     System.out.println("Strike");
                     strikes++;
                 } else {
@@ -214,9 +218,8 @@ public class SingleInning
                 }
             }
 
-            /* if(loc /= pitchLoc){
-            }*/
-
+            System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
+            
         }
         if(strikes == 3) {
             System.out.println("Strikeout");
