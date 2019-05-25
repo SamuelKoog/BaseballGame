@@ -7,7 +7,7 @@ public class Game
         while(correctCheck == 0) {
             if(answer.equals("Single-Inning")) {
                 correctCheck = 1;
-                SingleInning game = new SingleInning(0);
+                SingleInning game = new SingleInning();
                 while(game.getOuts() != 3) {
                 }
             } else if(answer.equals("Full Game")) {
