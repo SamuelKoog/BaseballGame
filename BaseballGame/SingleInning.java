@@ -6,7 +6,7 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
-    private ArrayList<Batter> order = new ArrayList<Batter>(9);
+    private ArrayList<String> order = new ArrayList<String>(9);
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -15,17 +15,24 @@ public class SingleInning
     public int getOuts() {
         return totalOuts;
     }
-
+    
     public int getRuns() {
         return runs;
     }
-
+    
+    
     public void newGame() {
         System.out.println("Play ball!");
         int batterPos = 0; //which batter up
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
+        Scanner batter = new Scanner(System.in);
+        for (int i = 0; i <= 9; i++){
+            System.out.println("Please Input a batter name");
+            String name = batter.next();
+            order.add(name);
+        }
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
@@ -35,8 +42,8 @@ public class SingleInning
             int spd = 200 - hit - pwr; //speed of batter
             Batter Javier = new Batter(hit, pwr, spd);
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
-            System.out.println("At Bat: Javier Baez (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
-            
+            System.out.println("At Bat: " + order.get(batterPos) + " (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
+
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
                 System.out.println("out");
@@ -74,6 +81,7 @@ public class SingleInning
 
             } else if(result.equals("walk")) {
             }
+            batterPos++;
         }
 
     }
@@ -217,9 +225,13 @@ public class SingleInning
                     balls++;
                 }
             }
+            else{
+                System.out.println("Invalid Command: please choose yes or no");
+                pitches--;
+            }
 
-            System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
-            
+            System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
+
         }
         if(strikes == 3) {
             System.out.println("Strikeout");
