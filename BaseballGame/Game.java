@@ -8,8 +8,7 @@ public class Game
             if(answer.equals("Single-Inning")) {
                 correctCheck = 1;
                 SingleInning game = new SingleInning();
-                while(game.getOuts() != 3) {
-                }
+                game.newGame();
             } else if(answer.equals("Full Game")) {
                 correctCheck = 1;
             } else {
