@@ -9,4 +9,16 @@ public class Pitcher extends SingleInning
         ctrl = ctrl1;
         stf = stf1;
     }
+            public int getArm()
+    {
+        return arm;
+    }
+        public int getCtrl()
+    {
+        return ctrl;
+    }
+            public int getStf()
+    {
+        return stf;
+    }
 }
