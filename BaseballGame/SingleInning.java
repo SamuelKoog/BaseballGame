@@ -63,6 +63,7 @@ public class SingleInning
                 }
 
             } else if(result.equals("walk")) {
+                single();
             }
         }
 
@@ -152,12 +153,12 @@ public class SingleInning
     public String atBat(Pitcher Lester, Batter Javier) {
         int strikes=0;
         int balls=0;
-        int pitch;
+        int pitch = 0;
         while(strikes<3 && balls<4) {
             int pitchX = (int) Math.random()*100;
             int pitchY = (int) Math.random()*100;
-            if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of range then ball ++ 
-                if((int) Math.random() * 100 + 1 < Lester.getCtrl()) {
+            if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of grid, which is from 20-80 in both x and y coordinates 
+                if((int) Math.random() * 100 + 1 < Lester.getCtrl()) {  //if the control 
                     while(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {
                         pitchX = (int) Math.random()*100;
                         pitchY = (int) Math.random()*100;
@@ -189,6 +190,7 @@ public class SingleInning
             }*/
 
         }
+        return "Batting Over";
     }
 
     public int gridConversion(int pitchX, int pitchY){
