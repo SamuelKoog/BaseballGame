@@ -6,7 +6,8 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
-    private ArrayList<Batter> order = new ArrayList<Batter>(9);
+    private int stealHit = 0;
+    private ArrayList<Batter> order = new ArrayList<Batter>(8);
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -22,36 +23,65 @@ public class SingleInning
 
     public void newGame() {
         System.out.println("Play ball!");
-        int batterPos = 0; //which batter up
+        int batterPos = -1; //which batter up
+        int batterPos2 = 0; //determines end of order
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
+            if(batterPos>7) {
+                batterPos = 0;
+                batterPos2++;
+            } else {
+                batterPos++;
+            }
+            Batter Javier;
             printField();
-            int hit = (int) (Math.random()*50) + 51;
-            int pwr = (int) (Math.random()*50) + 51;
+            int hit = (int) (Math.random()*75) + 26;
+            int pwr = (int) (Math.random()*75) + 26;
             int spd = 200 - hit - pwr; //speed of batter
-            Batter Javier = new Batter(hit, pwr, spd);
+            if(order.size() == batterPos && batterPos2 == 0) {
+                Javier = new Batter(hit, pwr, spd);
+                order.add(Javier);
+            } else {
+
+                Javier = order.get(batterPos);
+            }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
-            System.out.println("At Bat: Javier Baez (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
-            
+            System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
+            if(runners[1].equals("X") && runners[2].equals("O")) {
+                System.out.print("");
+            }
+            if(runners[0].equals("X") && runners[1].equals("O")) {
+                int temp = batterPos;
+                if(temp == 0) {
+                    temp = 8;
+                }
+                System.out.println("Steal base?");
+                Scanner steal = new Scanner(System.in);
+                String choic = steal.next();
+                if(choic.toUpperCase().equals("YES")) {
+                    steal(order.get(temp-1), Lester);
+                }
+
+            }
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
                 System.out.println("out");
                 totalOuts++;
             } else if(result.equals("hit")) {
-                int type = (int) (Math.random()*(pwr+20));
+                int type = (int) (Math.random()*(pwr+30));
                 int fly = (int) (Math.random()*100);
                 System.out.println(fly);
-                if(type<10) {
+                if(type<20) {
                     System.out.println("Groundout!");
                     totalOuts++;
-                } else if(type < 40) {
+                } else if(type < 50) {
                     System.out.println("Single!");
                     single();
-                } else if(type < 70) {
+                } else if(type < 80) {
                     if(fly<20) {
                         System.out.println("Fly out!");
                         totalOuts++;
@@ -59,10 +89,10 @@ public class SingleInning
                         System.out.println("Double!");
                         duble();
                     }
-                } else if(type < 80) {
+                } else if(type < 90) {
                     System.out.println("Triple!");
                     triple();
-                } else if(type < 100) {
+                } else if(type < 110) {
                     if(fly<20) {
                         System.out.println("Fly out!");
                         totalOuts++;
@@ -73,9 +103,57 @@ public class SingleInning
                 }
 
             } else if(result.equals("walk")) {
+                System.out.println("Batter walked");
+                if(runners[0].equals("X")) {
+                    if(runners[1].equals("X")) {
+                        if(runners[2].equals("X")) {
+                            System.out.println("1 run scores!");
+                            runs++;
+                        }
+                        runners[2] = "X";
+                    }
+                    runners[1] = "X";
+                }
+                runners[0] = "X";
             }
         }
 
+    }
+
+    public void steal(Batter b, Pitcher p) {
+        int spd = b.getSpd();
+        int arm = p.getArm();
+        if(runners[1].equals("X")) {
+            if(1.0 < Math.random()*(((double) spd) / arm)) {
+                if(Math.random()*10 != 9) {
+                    System.out.println("Stolen Base!");
+                    runners[1] = "O";
+                    runners[2] = ("X");
+                }
+                else {
+                }
+            } else {
+                System.out.println("Picked Off!");
+                runners[1] = "O";
+                totalOuts++;
+            }
+        } else {
+            if(0.5 < Math.random()*(((double) spd) / arm)) {
+                if(Math.random()*10 != 9) {
+                    System.out.println("Stolen Base!");
+                    runners[0] = "O";
+                    runners[1] = ("X");
+                }
+                else {
+                }
+            } else {
+                System.out.println("Picked Off!");
+                runners[0] = "O";
+                totalOuts++;
+            }
+        }
+        printField();
+                    System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
     }
 
     public void single() {
@@ -210,16 +288,16 @@ public class SingleInning
             }
             else if(choice.toUpperCase().equals("NO")){
                 if((pitch >= 1 && pitch <=9)) {
-                    System.out.println("Strike");
+                    System.out.println("Strike!");
                     strikes++;
                 } else {
-                    System.out.println("Ball");
+                    System.out.println("Ball!");
                     balls++;
                 }
             }
 
             System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
-            
+
         }
         if(strikes == 3) {
             System.out.println("Strikeout");
