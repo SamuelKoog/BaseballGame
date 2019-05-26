@@ -6,8 +6,11 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
+
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
+
+
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -28,6 +31,8 @@ public class SingleInning
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
+
+       
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
@@ -46,7 +51,7 @@ public class SingleInning
                 Javier = new Batter(hit, pwr, spd);
                 order.add(Javier);
             } else {
-
+                System.out.println(batterPos);
                 Javier = order.get(batterPos);
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
@@ -67,6 +72,9 @@ public class SingleInning
                 }
 
             }
+
+            //URGENT picked off to 3 outs doesnt end game instantly
+
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
                 System.out.println("out");
@@ -117,7 +125,7 @@ public class SingleInning
                 runners[0] = "X";
             }
         }
-
+        System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
     }
 
     public void steal(Batter b, Pitcher p) {
@@ -268,7 +276,20 @@ public class SingleInning
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
             System.out.println("Location " + pitch);
-
+            /*int[] loc1 = {1, 2, 4, 5};
+            int[] loc2 = {2, 3, 5, 6};
+            int[] loc3 = {4, 5, 7, 8};
+            int[] loc4 = {5, 6, 8, 9};
+            if(pitch == 1){
+                pitch = loc1[((int)Math.random() * 4)];
+            }else if(pitch == 2){
+                pitch = loc2[((int)Math.random() * 4)];
+            }else if(pitch == 3){
+                pitch = loc3[((int)Math.random() * 4)];
+            }else if(pitch == 4){
+                pitch = loc4[((int)Math.random() * 4)];
+            }*/
+            
             Scanner swing = new Scanner(System.in);
             System.out.println("Swing? ");
             String choice = swing.next();
@@ -295,13 +316,20 @@ public class SingleInning
                     balls++;
                 }
             }
+            else{
+                System.out.println("Invalid Command: please choose yes or no");
+                pitches--;
+            }
+
+            System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
             System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
+
 
         }
         if(strikes == 3) {
             System.out.println("Strikeout");
-            totalOuts++;
+            //totalOuts++;
             return "out";
         }
         return "walk";
@@ -311,36 +339,51 @@ public class SingleInning
         int px = pitchX;
         int py = pitchY;
         int pitchLoc = 0;
-        if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
-            return 1;
+        /*if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
+        return 1;
         }
         else if((px >= 40 && px < 60) && (py >= 20 && py < 40)){
-            return 2;
+        return 2;
         }
         else if((px >= 60 && px < 80) && (py >= 20 && py < 40)){
-            return 3;
+        return 3;
         }
         else if((px >= 20 && px < 40) && (py >= 40 && py < 60)){
-            return 4;
+        return 4;
         }
         else if((px >= 40 && px < 60) && (py >= 40 && py < 60)){
-            return 5;
+        return 5;
         }
         else if((px >= 60 && px < 80) && (py >= 40 && py < 60)){
-            return 6;
+        return 6;
         }
         else if((px >= 20 && px < 40) && (py >= 60 && py <= 80)){
-            return 7;
+        return 7;
         }
         else if((px >= 20 && px < 60) && (py >= 60 && py <= 80)){
-            return 8;
+        return 8;
         }
         else if ((px >= 60 && px < 80) && (py >= 60 && py <= 80)){
-            return 9;
+        return 9;
         } else {
+        return 0; //ball
+        }*/
+
+        if((px >= 20 && px < 50) && (py >= 20 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 80) && (py >= 20 && py < 50)){
+            return 2;
+        }
+        else if((px >= 20 && px < 50) && (py >= 50 && py < 80)){
+            return 3;
+        }
+        else if((px >= 50 && px < 80) && (py >= 50 && py < 80)){
+            return 4;
+        }
+        else {
             return 0; //ball
         }
-
     }
 
     public void printField() {
