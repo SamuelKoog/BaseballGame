@@ -103,7 +103,7 @@ public class SingleInning
             }
             batterPos++;
         }
-
+        System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
     }
 
     public void single() {
@@ -218,7 +218,20 @@ public class SingleInning
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
             System.out.println("Location " + pitch);
-
+            int[] loc1 = {1, 2, 4, 5};
+            int[] loc2 = {2, 3, 5, 6};
+            int[] loc3 = {4, 5, 7, 8};
+            int[] loc4 = {5, 6, 8, 9};
+            if(pitch == 1){
+                pitch = loc1[((int)Math.random() * 4)];
+            }else if(pitch == 2){
+                pitch = loc2[((int)Math.random() * 4)];
+            }else if(pitch == 3){
+                pitch = loc3[((int)Math.random() * 4)];
+            }else if(pitch == 4){
+                pitch = loc4[((int)Math.random() * 4)];
+            }
+            
             Scanner swing = new Scanner(System.in);
             System.out.println("Swing? ");
             String choice = swing.next();
@@ -255,7 +268,7 @@ public class SingleInning
         }
         if(strikes == 3) {
             System.out.println("Strikeout");
-            totalOuts++;
+            //totalOuts++;
             return "out";
         }
         return "walk";
@@ -265,36 +278,51 @@ public class SingleInning
         int px = pitchX;
         int py = pitchY;
         int pitchLoc = 0;
-        if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
-            return 1;
+        /*if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
+        return 1;
         }
         else if((px >= 40 && px < 60) && (py >= 20 && py < 40)){
-            return 2;
+        return 2;
         }
         else if((px >= 60 && px < 80) && (py >= 20 && py < 40)){
-            return 3;
+        return 3;
         }
         else if((px >= 20 && px < 40) && (py >= 40 && py < 60)){
-            return 4;
+        return 4;
         }
         else if((px >= 40 && px < 60) && (py >= 40 && py < 60)){
-            return 5;
+        return 5;
         }
         else if((px >= 60 && px < 80) && (py >= 40 && py < 60)){
-            return 6;
+        return 6;
         }
         else if((px >= 20 && px < 40) && (py >= 60 && py <= 80)){
-            return 7;
+        return 7;
         }
         else if((px >= 20 && px < 60) && (py >= 60 && py <= 80)){
-            return 8;
+        return 8;
         }
         else if ((px >= 60 && px < 80) && (py >= 60 && py <= 80)){
-            return 9;
+        return 9;
         } else {
+        return 0; //ball
+        }*/
+
+        if((px >= 20 && px < 50) && (py >= 20 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 80) && (py >= 20 && py < 50)){
+            return 2;
+        }
+        else if((px >= 20 && px < 50) && (py >= 50 && py < 80)){
+            return 3;
+        }
+        else if((px >= 50 && px < 80) && (py >= 50 && py < 80)){
+            return 4;
+        }
+        else {
             return 0; //ball
         }
-
     }
 
     public void printField() {
