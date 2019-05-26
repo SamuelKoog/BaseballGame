@@ -5,12 +5,11 @@ public class Game
         String answer = startGame();
         int correctCheck = 0;
         while(correctCheck == 0) {
-            if(answer.equals("Single-Inning")) {
+            if(answer.toUpperCase().equals("SINGLE-INNING")) {
                 correctCheck = 1;
                 SingleInning game = new SingleInning();
-                while(game.getOuts() != 3) {
-                }
-            } else if(answer.equals("Full Game")) {
+                game.newGame();
+            } else if(answer.toUpperCase().equals("FULL GAME")) {
                 correctCheck = 1;
             } else {
                 System.out.println();
