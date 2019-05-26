@@ -6,6 +6,7 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
+    private String name = "";
     private ArrayList<String> order = new ArrayList<String>(9);
     public SingleInning() {
         totalOuts = 0;
@@ -15,12 +16,11 @@ public class SingleInning
     public int getOuts() {
         return totalOuts;
     }
-    
+
     public int getRuns() {
         return runs;
     }
-    
-    
+
     public void newGame() {
         System.out.println("Play ball!");
         int batterPos = 0; //which batter up
@@ -28,10 +28,25 @@ public class SingleInning
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
         Scanner batter = new Scanner(System.in);
-        for (int i = 0; i <= 9; i++){
-            System.out.println("Please Input a batter name");
-            String name = batter.next();
+        System.out.println("Please Input a batter name or type AutoInput");
+        name = batter.next();
+        if (name.toUpperCase().equals("AUTOINPUT")){
+            order.add("Ted Williams");
+            order.add("Ty Cobb");
+            order.add("Rogers Hornsby");
+            order.add("Stan Musial");
+            order.add("Tony Gwynn");
+            order.add("Babe Ruth");
+            order.add("Harry Heilmann");
+            order.add("Wade Boggs");
+            order.add("Albert Pujols");
+        }else{
             order.add(name);
+            for (int i = 0; i < 9; i++){
+                System.out.println("Please Input a batter name");
+                name = batter.next();
+                order.add(name);
+            }
         }
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
