@@ -57,7 +57,12 @@ public class SingleInning
             int spd = 200 - hit - pwr; //speed of batter
             Batter Javier = new Batter(hit, pwr, spd);
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
-            System.out.println("At Bat: " + order.get(batterPos) + " (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
+            if(batterPos >= 9){
+                batterPos = batterPos % 9;
+                System.out.println("At Bat: " + order.get(batterPos) + " (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
+            }else{
+                System.out.println("At Bat: " + order.get(batterPos) + " (Hit = " + hit + ", Power = " + pwr + ", Speed = " + spd + ")");
+            }
 
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
