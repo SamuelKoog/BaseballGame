@@ -1,4 +1,4 @@
-public class Batter extends SingleInning
+public class Batter
 {
     private int hit;
     private int pwr;
