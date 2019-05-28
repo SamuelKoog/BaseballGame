@@ -56,8 +56,8 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-            if(runners[1].equals("X") && runners[2].equals("O")) {
-                System.out.print("");
+            if(runners[0].equals("X") && runners[1].equals("O")) {
+                
             }
             if(runners[0].equals("X") && runners[1].equals("O")) {
                 int temp = batterPos;
@@ -66,12 +66,13 @@ public class SingleInning
                 }
                 System.out.println("Steal base?");
                 Scanner steal = new Scanner(System.in);
-                String choic = steal.next();
-                if(choic.toUpperCase().equals("YES")) {
+                String choice = steal.next();
+                if(choice.toUpperCase().equals("YES")) {
                     steal(order.get(temp-1), Lester);
                 }
 
             }
+            //if(runners[1].equals
 
             //URGENT picked off to 3 outs doesnt end game instantly
 
@@ -111,9 +112,9 @@ public class SingleInning
                 }
 
             } else if(result.equals("walk")) {
-<<<<<<< HEAD
+
                 single();
-=======
+
                 System.out.println("Batter walked");
                 if(runners[0].equals("X")) {
                     if(runners[1].equals("X")) {
@@ -126,7 +127,7 @@ public class SingleInning
                     runners[1] = "X";
                 }
                 runners[0] = "X";
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
+
             }
         }
         System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
@@ -256,14 +257,14 @@ public class SingleInning
     public String atBat(Pitcher Lester, Batter Javier) {
         int strikes=0;
         int balls=0;
-<<<<<<< HEAD
+
         int pitch = 0;
         while(strikes<3 && balls<4) {
             int pitchX = (int) Math.random()*100;
             int pitchY = (int) Math.random()*100;
             if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of grid, which is from 20-80 in both x and y coordinates 
                 if((int) Math.random() * 100 + 1 < Lester.getCtrl()) {  //if the control 
-=======
+
         int pitch;
         int pitches=0;
         while(strikes<3 && balls<4) {
@@ -271,7 +272,7 @@ public class SingleInning
             int pitchY = (int) (Math.random()*100);
             if(pitchX < 30 || pitchX > 70 || pitchY < 30 || pitchY >70) {   //if pitch is out of range then ball ++ 
                 if((int) (Math.random() * 120) < Lester.getCtrl()) {
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
+
                     while(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {
                         pitchX = (int) (Math.random()*100);
                         pitchY = (int) (Math.random()*100);
@@ -340,16 +341,16 @@ public class SingleInning
 
 
         }
-<<<<<<< HEAD
+
         return "Batting Over";
-=======
+
         if(strikes == 3) {
             System.out.println("Strikeout");
             //totalOuts++;
             return "out";
         }
         return "walk";
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
+
     }
 
     public int gridConversion(int pitchX, int pitchY){

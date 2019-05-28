@@ -8,37 +8,20 @@ dependency2.type=UsesDependency
 dependency3.from=SingleInning
 dependency3.to=Pitcher
 dependency3.type=UsesDependency
-<<<<<<< HEAD
-editor.fx.0.height=690
-editor.fx.0.width=818
-editor.fx.0.x=352
+editor.fx.0.height=821
+editor.fx.0.width=1440
+editor.fx.0.x=0
 editor.fx.0.y=23
-objectbench.height=198
-objectbench.width=1256
+objectbench.height=145
+objectbench.width=1416
 package.divider.horizontal=0.6
-package.divider.vertical=0.6756329113924051
-package.editor.height=420
-package.editor.width=1154
+package.divider.vertical=0.7997364953886693
+package.editor.height=600
+package.editor.width=1314
 package.editor.x=0
 package.editor.y=23
-package.frame.height=690
-package.frame.width=1280
-=======
-editor.fx.0.height=1048
-editor.fx.0.width=1938
-editor.fx.0.x=-9
-editor.fx.0.y=-9
-objectbench.height=178
-objectbench.width=1896
-package.divider.horizontal=0.6
-package.divider.vertical=0.8008611410118407
-package.editor.height=737
-package.editor.width=1790
-package.editor.x=-9
-package.editor.y=-9
-package.frame.height=1048
-package.frame.width=1938
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
+package.frame.height=817
+package.frame.width=1440
 package.numDependencies=3
 package.numTargets=5
 package.showExtends=true
@@ -68,13 +51,8 @@ target3.name=test
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=80
-<<<<<<< HEAD
-target3.x=120
-target3.y=160
-=======
 target3.x=450
 target3.y=310
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
 target4.height=50
 target4.name=SingleInning
 target4.showInterface=false
@@ -87,9 +65,5 @@ target5.name=Pitcher
 target5.showInterface=false
 target5.type=ClassTarget
 target5.width=80
-<<<<<<< HEAD
-target5.x=10
-=======
 target5.x=640
->>>>>>> a108e28561e136d30746c98990cd66f09be63c14
 target5.y=130
