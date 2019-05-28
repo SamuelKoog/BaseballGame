@@ -277,7 +277,8 @@ public class SingleInning
             pitches++;
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
-            System.out.println("Location " + pitch);
+            System.out.println("Batter eye: Sector " + hiddenLocation(pitchX, pitchY));
+            printDiagram();
             /*int[] loc1 = {1, 2, 4, 5};
             int[] loc2 = {2, 3, 5, 6};
             int[] loc3 = {4, 5, 7, 8};
@@ -338,7 +339,24 @@ public class SingleInning
 
     }
 
-
+    public int hiddenLocation(int pitchX, int pitchY){
+        int px = pitchX;
+        int py = pitchY;
+        int pitchLoc = 0;
+        if((px >= 0 && px < 50) && (py >= 0 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 100) && (py >= 50 && py < 100)){
+            return 4;
+        }
+        else if((px >= 50 && px < 100) && (py >= 0 && py < 50)){
+            return 2;
+        }
+        else if((px >= 0 && px < 50) && (py >= 50 && py < 100)){
+            return 3;
+        }
+        return 0;
+    }
     public int gridConversion(int pitchX, int pitchY){
         int px = pitchX;
         int py = pitchY;
@@ -389,13 +407,13 @@ public class SingleInning
 
     public void printDiagram(){
         System.out.println("|     |     |     |");
-        System.out.println("|  1  |  2  |  3  |");
         System.out.println("|     |     |     |");
-        System.out.println("|-----|-----|-----|");
-        System.out.println("|  4  |  5  |  6  |");
         System.out.println("|     |     |     |");
-        System.out.println("|-----|-----|-----|");
-        System.out.println("|  7  |  8  |  9  |");
+        System.out.println("|-----1-----2-----|");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----3-----4-----|");
+        System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
     }
