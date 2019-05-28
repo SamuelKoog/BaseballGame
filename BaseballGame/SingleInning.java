@@ -77,6 +77,7 @@ public class SingleInning
             if(result.equals("out")) {
                 System.out.println("out");
                 totalOuts++;
+                System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             } else if(result.equals("hit")) {
                 int type = (int) (Math.random()*(pwr+30));
                 int fly = (int) (Math.random()*100);
@@ -255,6 +256,7 @@ public class SingleInning
         int balls=0;
         int pitch = 0;
         int pitches = 0;
+        
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -277,6 +279,7 @@ public class SingleInning
             pitches++;
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
+            System.out.println(pitch);
             System.out.println("Batter eye: Sector " + hiddenLocation(pitchX, pitchY));
             printDiagram();
             /*int[] loc1 = {1, 2, 4, 5};
@@ -298,13 +301,28 @@ public class SingleInning
             String choice = swing.next();
             if(choice.toUpperCase().equals("YES")) {
                 System.out.println("Where? ");
-                printDiagram();
+                printDiagram1();
                 int loc = swing.nextInt();
                 if(loc < 1 || loc > 9){
                     System.out.println("Invalid location. choose a number 1-9");
                 }
                 else if(loc == pitch){
-                    return "hit";
+                    int hita = Javier.getHit();
+                    int stfa = Lester.getStf();
+                    double chances = Math.random()*(((double) hita) / stfa); 
+                    if(0.3 <= chances) {
+                        return "hit";
+                    } else if(0.15 <= chances) {
+                        System.out.println("Foul ball!");
+                        if(strikes<2) {
+                            strikes++;
+                        }
+                    } else {
+                        System.out.println("Pop out!");
+                        totalOuts++;
+                        return "";
+                    }
+
                 } else if(loc != pitch) {
                     System.out.println("strike");
                     strikes++;
@@ -326,7 +344,6 @@ public class SingleInning
 
             System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
-            System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
 
         }
 
@@ -357,6 +374,7 @@ public class SingleInning
         }
         return 0;
     }
+
     public int gridConversion(int pitchX, int pitchY){
         int px = pitchX;
         int py = pitchY;
@@ -392,7 +410,6 @@ public class SingleInning
         }
     }
 
-            
     public void printField() {
         System.out.println("        " + runners[1] + "      ");
         System.out.println("                 ");
@@ -418,5 +435,18 @@ public class SingleInning
         System.out.println("|     |     |     |");
     }
 
+    public void printDiagram1(){
+        System.out.println("|     |     |     |");
+        System.out.println("|  1  |  2  |  3  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----|-----|-----|");
+        System.out.println("|  4  |  5  |  6  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----|-----|-----|");
+        System.out.println("|  7  |  8  |  9  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+    }
+    
 }
 
