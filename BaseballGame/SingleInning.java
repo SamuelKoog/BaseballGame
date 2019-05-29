@@ -9,7 +9,8 @@ public class SingleInning
 
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
-
+    private int nameChecker = 0; //checks if names are automated
+    private String namer[] = new String[9];
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -22,6 +23,23 @@ public class SingleInning
     public int getRuns() {
         return runs;
     }
+    
+    public void name() {
+        Scanner names = new Scanner(System.in);
+        System.out.println("Name batters automatically?");
+        if((names.next()).equals("Yes")) {
+            namer[0] = "Christian Yelich";
+            namer[1] = "Cody Bellinger";
+            namer[2] = "Nolan Arenado";
+            namer[3] = "Jose Altuve";
+            namer[4] = "Javier Baez";
+            namer[5] = "Buster Posey";
+            namer[6] = "Aaron Judge";
+            namer[7] = "Ronald Acuña Jr.";
+            namer[8] = "Aaron Nola";
+            nameChecker = 1;
+        }
+    }
 
     public void newGame() {
         System.out.println("Play ball!");
@@ -32,8 +50,8 @@ public class SingleInning
         int stf = 200 - arm - ctrl;
 
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
-        System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
-        while(totalOuts<3) {
+        System.out.println("On the mound: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
+        while(totalOuts<100) {
             if(batterPos>7) {
                 batterPos = 0;
                 batterPos2++;
@@ -46,14 +64,20 @@ public class SingleInning
             int pwr = (int) (Math.random()*75) + 26;
             int spd = 200 - hit - pwr; //speed of batter
             if(order.size() == batterPos && batterPos2 == 0) {
-                Javier = new Batter(hit, pwr, spd);
+                if(nameChecker == 0) {
+                    Scanner name = new Scanner(System.in);
+                    System.out.println("Batter " + (batterPos + 1) + " name? ");
+                Javier = new Batter(hit, pwr, spd, name.next());
+            } else {
+                Javier = new Batter(hit, pwr, spd, namer[batterPos]);
+            }
                 order.add(Javier);
             } else {
                 System.out.println(batterPos);
                 Javier = order.get(batterPos);
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
-            System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
+            System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
             if(runners[1].equals("X") && runners[2].equals("O")) {
                 System.out.print("");
             }
