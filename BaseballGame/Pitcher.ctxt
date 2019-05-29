@@ -2,10 +2,4 @@
 comment0.target=Pitcher
 comment1.params=arm1\ ctrl1\ stf1
 comment1.target=Pitcher(int,\ int,\ int)
-comment2.params=
-comment2.target=int\ getArm()
-comment3.params=
-comment3.target=int\ getCtrl()
-comment4.params=
-comment4.target=int\ getStf()
-numComments=5
+numComments=2
