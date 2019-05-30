@@ -9,7 +9,8 @@ public class SingleInning
 
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
-
+    private int nameChecker = 0; //checks if names are automated
+    private String namer[] = new String[9];
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -22,6 +23,23 @@ public class SingleInning
     public int getRuns() {
         return runs;
     }
+    
+    public void name() {
+        Scanner names = new Scanner(System.in);
+        System.out.println("Name batters automatically?");
+        if((names.next()).equals("Yes")) {
+            namer[0] = "Christian Yelich";
+            namer[1] = "Cody Bellinger";
+            namer[2] = "Nolan Arenado";
+            namer[3] = "Jose Altuve";
+            namer[4] = "Javier Baez";
+            namer[5] = "Buster Posey";
+            namer[6] = "Aaron Judge";
+            namer[7] = "Ronald Acuña Jr.";
+            namer[8] = "Aaron Nola";
+            nameChecker = 1;
+        }
+    }
 
     public void newGame() {
         System.out.println("Play ball!");
@@ -32,8 +50,8 @@ public class SingleInning
         int stf = 200 - arm - ctrl;
 
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
-        System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
-        while(totalOuts<3) {
+        System.out.println("On the mound: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
+        while(totalOuts<100) {
             if(batterPos>7) {
                 batterPos = 0;
                 batterPos2++;
@@ -46,13 +64,20 @@ public class SingleInning
             int pwr = (int) (Math.random()*75) + 26;
             int spd = 200 - hit - pwr; //speed of batter
             if(order.size() == batterPos && batterPos2 == 0) {
-                Javier = new Batter(hit, pwr, spd);
+                if(nameChecker == 0) {
+                    Scanner name = new Scanner(System.in);
+                    System.out.println("Batter " + (batterPos + 1) + " name? ");
+                Javier = new Batter(hit, pwr, spd, name.next());
+            } else {
+                Javier = new Batter(hit, pwr, spd, namer[batterPos]);
+            }
                 order.add(Javier);
             } else {
                 System.out.println(batterPos);
                 Javier = order.get(batterPos);
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
+<<<<<<< HEAD
             System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
             if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("O")) { //runners on 1st only
                 int runner = batterPos;
@@ -121,6 +146,11 @@ public class SingleInning
                     }
                    
                 }
+=======
+            System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
+            if(runners[1].equals("X") && runners[2].equals("O")) {
+                System.out.print("");
+>>>>>>> ad3f3bad51fa04c91d140acf473f715e14f05d1b
             }
             if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("X")) { //runners on first and third
                 int temp = batterPos;
@@ -142,6 +172,7 @@ public class SingleInning
             if(result.equals("out")) {
                 System.out.println("out");
                 totalOuts++;
+                System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             } else if(result.equals("hit")) {
                 int type = (int) (Math.random()*(pwr+30));
                 int fly = (int) (Math.random()*100);
@@ -322,6 +353,7 @@ public class SingleInning
 
         int pitch = 0;
         int pitches = 0;
+        
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -344,7 +376,9 @@ public class SingleInning
             pitches++;
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
-            System.out.println("Location " + pitch);
+            System.out.println(pitch);
+            System.out.println("Batter eye: Sector " + hiddenLocation(pitchX, pitchY));
+            printDiagram();
             /*int[] loc1 = {1, 2, 4, 5};
             int[] loc2 = {2, 3, 5, 6};
             int[] loc3 = {4, 5, 7, 8};
@@ -364,13 +398,28 @@ public class SingleInning
             String choice = swing.next();
             if(choice.toUpperCase().equals("YES")) {
                 System.out.println("Where? ");
-                printDiagram();
+                printDiagram1();
                 int loc = swing.nextInt();
                 if(loc < 1 || loc > 9){
                     System.out.println("Invalid location. choose a number 1-9");
                 }
                 else if(loc == pitch){
-                    return "hit";
+                    int hita = Javier.getHit();
+                    int stfa = Lester.getStf();
+                    double chances = Math.random()*(((double) hita) / stfa); 
+                    if(0.3 <= chances) {
+                        return "hit";
+                    } else if(0.15 <= chances) {
+                        System.out.println("Foul ball!");
+                        if(strikes<2) {
+                            strikes++;
+                        }
+                    } else {
+                        System.out.println("Pop out!");
+                        totalOuts++;
+                        return "";
+                    }
+
                 } else if(loc != pitch) {
                     System.out.println("strike");
                     strikes++;
@@ -392,7 +441,6 @@ public class SingleInning
 
             System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
-            System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
 
         }
 
@@ -405,6 +453,28 @@ public class SingleInning
 
     }
 
+<<<<<<< HEAD
+=======
+    public int hiddenLocation(int pitchX, int pitchY){
+        int px = pitchX;
+        int py = pitchY;
+        int pitchLoc = 0;
+        if((px >= 0 && px < 50) && (py >= 0 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 100) && (py >= 50 && py < 100)){
+            return 4;
+        }
+        else if((px >= 50 && px < 100) && (py >= 0 && py < 50)){
+            return 2;
+        }
+        else if((px >= 0 && px < 50) && (py >= 50 && py < 100)){
+            return 3;
+        }
+        return 0;
+    }
+
+>>>>>>> ad3f3bad51fa04c91d140acf473f715e14f05d1b
     public int gridConversion(int pitchX, int pitchY){
         int px = pitchX;
         int py = pitchY;
@@ -454,6 +524,19 @@ public class SingleInning
 
     public void printDiagram(){
         System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----1-----2-----|");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----3-----4-----|");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+        System.out.println("|     |     |     |");
+    }
+
+    public void printDiagram1(){
+        System.out.println("|     |     |     |");
         System.out.println("|  1  |  2  |  3  |");
         System.out.println("|     |     |     |");
         System.out.println("|-----|-----|-----|");
@@ -464,6 +547,6 @@ public class SingleInning
         System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
     }
-
+    
 }
 

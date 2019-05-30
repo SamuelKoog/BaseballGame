@@ -3,11 +3,13 @@ public class Batter
     private int hit;
     private int pwr;
     private int spd;
-    public Batter(int hit1, int pwr1, int spd1)
+    private String name;
+    public Batter(int hit1, int pwr1, int spd1, String nam)
     {
         hit = hit1;
         pwr = pwr1;
         spd = spd1;
+        name = nam;
     }
         public int getHit()
     {
@@ -20,6 +22,9 @@ public class Batter
             public int getSpd()
     {
         return spd;
+    }
+    public String getName() {
+        return name;
     }
     /*public void Steal()
     {
