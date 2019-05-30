@@ -1,13 +1,11 @@
 #BlueJ class context
 comment0.target=Batter
-comment1.params=hit1\ pwr1\ spd1\ nam
-comment1.target=Batter(int,\ int,\ int,\ java.lang.String)
+comment1.params=hit1\ pwr1\ spd1
+comment1.target=Batter(int,\ int,\ int)
 comment2.params=
 comment2.target=int\ getHit()
 comment3.params=
 comment3.target=int\ getPwr()
 comment4.params=
 comment4.target=int\ getSpd()
-comment5.params=
-comment5.target=java.lang.String\ getName()
-numComments=6
+numComments=5

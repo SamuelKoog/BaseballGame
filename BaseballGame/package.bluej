@@ -8,6 +8,7 @@ dependency2.type=UsesDependency
 dependency3.from=SingleInning
 dependency3.to=Pitcher
 dependency3.type=UsesDependency
+<<<<<<< HEAD
 dependency4.from=FullGame
 dependency4.to=SingleInning
 dependency4.type=UsesDependency
@@ -16,6 +17,10 @@ dependency5.to=Batter
 dependency5.type=UsesDependency
 editor.fx.0.height=737
 editor.fx.0.width=1297
+=======
+editor.fx.0.height=821
+editor.fx.0.width=1440
+>>>>>>> 9afd602258fc7b32b0749090877ba3642f66ad2e
 editor.fx.0.x=0
 editor.fx.0.y=23
 objectbench.height=81

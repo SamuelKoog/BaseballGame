@@ -8,7 +8,6 @@ public class Game
             if(answer.toUpperCase().equals("SINGLE-INNING")) {
                 correctCheck = 1;
                 SingleInning game = new SingleInning();
-                game.name();
                 game.newGame();
             } else if(answer.toUpperCase().equals("FULL GAME")) {
                 correctCheck = 1;
