@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class SingleInning 
+public class SingleInning
 {
     private String[]runners = {"O", "O", "O"};
     private int[][] grid;
@@ -9,6 +9,7 @@ public class SingleInning
 
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
+
 
     public SingleInning() {
         totalOuts = 0;
@@ -31,6 +32,7 @@ public class SingleInning
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
 
+       
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
@@ -54,78 +56,12 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-            if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("O")) { //runners on 1st only
-                int runner = batterPos;
-                int outs = getOuts();
-                if(runner == 0) { // special case if batter is first. 
-                    runner = 8;
-                }
-                System.out.println("Steal base?");
-                Scanner steal = new Scanner(System.in);
-                String choice = steal.next();
-                if(choice.toUpperCase().equals("YES")) {
-                    steal(order.get(runner-1), Lester);
-                }
-            }
-            if(runners[0].equals("X") && runners[1].equals("X") && runners[2].equals("O")) { //runners on 1st and second
-                int runner = batterPos;
-                int outs = getOuts();
-                if(runner == 0) { // special case if batter is first. 
-                    runner = 8;
-                }
-                System.out.println("Steal base?");
-                Scanner steal = new Scanner(System.in);
-                String choice = steal.next();
-                if(choice.toUpperCase().equals("YES")) {
-                    steal(order.get(runner-1), Lester);
-                }
-
-            }
-            
-            //TODO: Finish all cases for steal. Right now, steal is very simple, have to implement out of order steals. 
-            if(runners[0].equals("O") && runners[1].equals("X") && runners[2].equals("O")) { //runners on 2nd only
-                int temp = batterPos;
-                int outs = getOuts();
+            if(runners[0].equals("X") && runners[1].equals("O")) {
                 
-                System.out.println("Steal base?");
-                Scanner steal = new Scanner(System.in);
-                String choice = steal.next();
-                if(choice.toUpperCase().equals("YES")) {
-                    //below case is if all batters are in a row
-                    if(outs == 0){ // no outs
-                        if(temp == 0){
-                            temp = 8;
-                        }
-                        steal(order.get(temp-1), Lester);
-                    }
-                    else if(outs == 1){ //1 out
-                        if(temp == 0){
-                            temp = 7;
-                        }
-                        if(temp == 1){ 
-                            temp = 8;
-                        }
-                        steal(order.get(temp-2), Lester);
-                    }
-                    else{ //2 outs
-                        if(temp == 0){
-                            temp = 6;
-                        }
-                        if(temp == 1){
-                            temp = 7;
-                        }
-                        if(temp == 2){
-                            temp = 8;
-                        }
-                        steal(order.get(temp-3), Lester);
-                    }
-                   
-                }
             }
-            if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("X")) { //runners on first and third
+            if(runners[0].equals("X") && runners[1].equals("O")) {
                 int temp = batterPos;
-                int outs = getOuts();
-                if(temp == 0) { // special case if batter is first. 
+                if(temp == 0) {
                     temp = 8;
                 }
                 System.out.println("Steal base?");
@@ -134,7 +70,9 @@ public class SingleInning
                 if(choice.toUpperCase().equals("YES")) {
                     steal(order.get(temp-1), Lester);
                 }
+
             }
+            //if(runners[1].equals
 
             //URGENT picked off to 3 outs doesnt end game instantly
 
@@ -228,7 +166,7 @@ public class SingleInning
             }
         }
         printField();
-        System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
+                    System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
     }
 
     public void single() {
@@ -321,7 +259,14 @@ public class SingleInning
         int balls=0;
 
         int pitch = 0;
-        int pitches = 0;
+        while(strikes<3 && balls<4) {
+            int pitchX = (int) Math.random()*100;
+            int pitchY = (int) Math.random()*100;
+            if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of grid, which is from 20-80 in both x and y coordinates 
+                if((int) Math.random() * 100 + 1 < Lester.getCtrl()) {  //if the control 
+
+        int pitch;
+        int pitches=0;
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -350,15 +295,15 @@ public class SingleInning
             int[] loc3 = {4, 5, 7, 8};
             int[] loc4 = {5, 6, 8, 9};
             if(pitch == 1){
-            pitch = loc1[((int)Math.random() * 4)];
+                pitch = loc1[((int)Math.random() * 4)];
             }else if(pitch == 2){
-            pitch = loc2[((int)Math.random() * 4)];
+                pitch = loc2[((int)Math.random() * 4)];
             }else if(pitch == 3){
-            pitch = loc3[((int)Math.random() * 4)];
+                pitch = loc3[((int)Math.random() * 4)];
             }else if(pitch == 4){
-            pitch = loc4[((int)Math.random() * 4)];
+                pitch = loc4[((int)Math.random() * 4)];
             }*/
-
+            
             Scanner swing = new Scanner(System.in);
             System.out.println("Swing? ");
             String choice = swing.next();
@@ -394,7 +339,10 @@ public class SingleInning
 
             System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
 
+
         }
+
+        return "Batting Over";
 
         if(strikes == 3) {
             System.out.println("Strikeout");
@@ -409,33 +357,49 @@ public class SingleInning
         int px = pitchX;
         int py = pitchY;
         int pitchLoc = 0;
-        if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
-            return 1;
+        /*if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
+        return 1;
         }
         else if((px >= 40 && px < 60) && (py >= 20 && py < 40)){
-            return 2;
+        return 2;
         }
         else if((px >= 60 && px < 80) && (py >= 20 && py < 40)){
-            return 3;
+        return 3;
         }
         else if((px >= 20 && px < 40) && (py >= 40 && py < 60)){
-            return 4;
+        return 4;
         }
         else if((px >= 40 && px < 60) && (py >= 40 && py < 60)){
-            return 5;
+        return 5;
         }
         else if((px >= 60 && px < 80) && (py >= 40 && py < 60)){
-            return 6;
+        return 6;
         }
         else if((px >= 20 && px < 40) && (py >= 60 && py <= 80)){
-            return 7;
+        return 7;
         }
         else if((px >= 20 && px < 60) && (py >= 60 && py <= 80)){
-            return 8;
+        return 8;
         }
         else if ((px >= 60 && px < 80) && (py >= 60 && py <= 80)){
-            return 9;
+        return 9;
         } else {
+        return 0; //ball
+        }*/
+
+        if((px >= 20 && px < 50) && (py >= 20 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 80) && (py >= 20 && py < 50)){
+            return 2;
+        }
+        else if((px >= 20 && px < 50) && (py >= 50 && py < 80)){
+            return 3;
+        }
+        else if((px >= 50 && px < 80) && (py >= 50 && py < 80)){
+            return 4;
+        }
+        else {
             return 0; //ball
         }
     }
@@ -464,6 +428,5 @@ public class SingleInning
         System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
     }
-
 }
 
