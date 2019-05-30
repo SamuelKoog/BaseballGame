@@ -6,11 +6,13 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
-
+    private int runner = 0;
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
     private int nameChecker = 0; //checks if names are automated
     private String namer[] = new String[9];
+    int batterPos = -1; //which batter up
+    int batterPos2 = 0; //determines end of order
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -23,7 +25,7 @@ public class SingleInning
     public int getRuns() {
         return runs;
     }
-    
+
     public void name() {
         Scanner names = new Scanner(System.in);
         System.out.println("Name batters automatically?");
@@ -43,8 +45,7 @@ public class SingleInning
 
     public void newGame() {
         System.out.println("Play ball!");
-        int batterPos = -1; //which batter up
-        int batterPos2 = 0; //determines end of order
+
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
@@ -67,10 +68,10 @@ public class SingleInning
                 if(nameChecker == 0) {
                     Scanner name = new Scanner(System.in);
                     System.out.println("Batter " + (batterPos + 1) + " name? ");
-                Javier = new Batter(hit, pwr, spd, name.next());
-            } else {
-                Javier = new Batter(hit, pwr, spd, namer[batterPos]);
-            }
+                    Javier = new Batter(hit, pwr, spd, name.next());
+                } else {
+                    Javier = new Batter(hit, pwr, spd, namer[batterPos]);
+                }
                 order.add(Javier);
             } else {
                 System.out.println(batterPos);
@@ -78,25 +79,23 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-            if(runners[1].equals("X") && runners[2].equals("O")) {
-                System.out.print("");
-            }
-            if(runners[0].equals("X") && runners[1].equals("O")) {
+            if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("O")) { //runners on 2nd only
                 int temp = batterPos;
-                if(temp == 0) {
-                    temp = 8;
-                }
+                int outs = getOuts();
+
+                
                 System.out.println("Steal base?");
                 Scanner steal = new Scanner(System.in);
-                String choic = steal.next();
-                if(choic.toUpperCase().equals("YES")) {
-                    steal(order.get(temp-1), Lester);
-                }
+                String choice = steal.next();
+                if(choice.toUpperCase().equals("YES")) {
 
+                    steal(order.get(runner), Lester);
+
+                }
             }
 
-            //URGENT picked off to 3 outs doesnt end game instantly
 
+            //URGENT picked off to 3 outs doesnt end game instantly
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
                 System.out.println("out");
@@ -134,7 +133,7 @@ public class SingleInning
                 }
 
             } else if(result.equals("walk")) {
-                single();
+                runner = batterPos;
 
                 System.out.println("Batter walked");
                 if(runners[0].equals("X")) {
@@ -191,6 +190,7 @@ public class SingleInning
     }
 
     public void single() {
+        runner = batterPos;
         int rbi=0; //runs batted in for one hit
         if(runners[1].equals("X")) {
             runners[1] = "O";
@@ -280,7 +280,7 @@ public class SingleInning
         int balls=0;
         int pitch = 0;
         int pitches = 0;
-        
+
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -304,8 +304,20 @@ public class SingleInning
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
             System.out.println(pitch);
-            System.out.println("Batter eye: Sector " + hiddenLocation(pitchX, pitchY));
-            printDiagram();
+            System.out.println("Chances of hitting ball in each location: ");
+            
+            if(hiddenLocation(pitchX, pitchY) == 1){
+                printDiagram();
+            }
+            if(hiddenLocation(pitchX, pitchY) == 2){
+                printDiagram2();
+            }
+            if(hiddenLocation(pitchX, pitchY) == 3){
+                printDiagram3();
+            }
+            if(hiddenLocation(pitchX, pitchY) == 4){
+                printDiagram4();
+            }
             /*int[] loc1 = {1, 2, 4, 5};
             int[] loc2 = {2, 3, 5, 6};
             int[] loc3 = {4, 5, 7, 8};
@@ -368,9 +380,7 @@ public class SingleInning
 
             System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
-
         }
-
         if(strikes == 3) {
             System.out.println("Strikeout");
             //totalOuts++;
@@ -447,16 +457,67 @@ public class SingleInning
     }
 
     public void printDiagram(){
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|-----1-----2-----|");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|-----3-----4-----|");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
+        
+            System.out.println("|     |     |     |");
+            System.out.println("| 25% | 25% | 0%  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 25% | 25% | 0%  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 0%  | 0%  |");
+            System.out.println("|     |     |     |");
+        
+    }
+    
+    public void printDiagram2(){
+        
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 25% | 25% |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 25% | 25% |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 0%  | 0%  |");
+            System.out.println("|     |     |     |");
+        
+    }
+    
+    public void printDiagram3(){
+        
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 0%  | 0%  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 25% | 25% | 0%  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 25% | 25% | 0%  |");
+            System.out.println("|     |     |     |");
+        
+    }
+    
+    public void printDiagram4(){
+        
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 0%  | 0%  |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 25% | 25% |");
+            System.out.println("|     |     |     |");
+            System.out.println("|-----------------|");
+            System.out.println("|     |     |     |");
+            System.out.println("| 0%  | 25% | 25% |");
+            System.out.println("|     |     |     |");
+        
     }
 
     public void printDiagram1(){
@@ -464,13 +525,14 @@ public class SingleInning
         System.out.println("|  1  |  2  |  3  |");
         System.out.println("|     |     |     |");
         System.out.println("|-----|-----|-----|");
+        System.out.println("|     |     |     |");
         System.out.println("|  4  |  5  |  6  |");
         System.out.println("|     |     |     |");
         System.out.println("|-----|-----|-----|");
+        System.out.println("|     |     |     |");
         System.out.println("|  7  |  8  |  9  |");
         System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
     }
-    
+
 }
 
