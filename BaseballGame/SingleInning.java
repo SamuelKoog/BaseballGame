@@ -6,7 +6,11 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
+<<<<<<< HEAD
     private int runner = 0;
+=======
+    private int gameChecker = 0;
+>>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
     private int nameChecker = 0; //checks if names are automated
@@ -16,6 +20,10 @@ public class SingleInning
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
+    }
+
+    public void gameChecker() {
+        gameChecker = 1;
     }
 
     public int getOuts() {
@@ -44,15 +52,21 @@ public class SingleInning
     }
 
     public void newGame() {
+<<<<<<< HEAD
         System.out.println("Play ball!");
 
+=======
+
+        int batterPos = -1; //which batter up
+        int batterPos2 = 0; //determines end of order
+>>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
 
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("On the mound: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
-        while(totalOuts<100) {
+        while(totalOuts<3) {
             if(batterPos>7) {
                 batterPos = 0;
                 batterPos2++;
@@ -79,7 +93,12 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
+<<<<<<< HEAD
             if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("O")) { //runners on 2nd only
+=======
+
+            if(runners[0].equals("X") && runners[1].equals("O")) {
+>>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
                 int temp = batterPos;
                 int outs = getOuts();
 
@@ -150,7 +169,11 @@ public class SingleInning
 
             }
         }
-        System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
+        if(gameChecker == 0) {
+            System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
+        } else {
+            System.out.println("Inning over!");
+        }
     }
 
     public void steal(Batter b, Pitcher p) {

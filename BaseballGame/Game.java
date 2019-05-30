@@ -9,9 +9,14 @@ public class Game
                 correctCheck = 1;
                 SingleInning game = new SingleInning();
                 game.name();
+                System.out.println("Play Ball!");
                 game.newGame();
             } else if(answer.toUpperCase().equals("FULL GAME")) {
                 correctCheck = 1;
+                FullGame game = new FullGame();
+                System.out.println("Play Ball!");
+                game.newGame();
+                
             } else {
                 System.out.println();
                 System.out.print("Invalid input! Try again: ");
