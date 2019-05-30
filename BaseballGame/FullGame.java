@@ -30,7 +30,11 @@ public class FullGame
             System.out.println("Away team scored " + Iscore + " runs!");
             System.out.println("Box score: Home - " + runs + ", Away - " + PCruns);
             SingleInning inning = new SingleInning();
-            computerInning();
+            inning.gameChecker();
+            inning.newGame();
+            int Yscore = inning.getRuns();
+            runs+=Yscore;
+            System.out.println("Home team scored " + Yscore + " runs!");
             System.out.println("Box score: Home - " + runs + ", Away - " + PCruns);
         }
     }
@@ -80,6 +84,7 @@ public class FullGame
             }
             
         }
+        PCrun+=(int) (Math.random() * 3);
         return PCrun;
     }
 }

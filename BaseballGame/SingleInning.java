@@ -15,9 +15,11 @@ public class SingleInning
         totalOuts = 0;
         runs = 0;
     }
+
     public void gameChecker() {
         gameChecker = 1;
     }
+
     public int getOuts() {
         return totalOuts;
     }
@@ -25,7 +27,7 @@ public class SingleInning
     public int getRuns() {
         return runs;
     }
-    
+
     public void name() {
         Scanner names = new Scanner(System.in);
         System.out.println("Name batters automatically?");
@@ -44,7 +46,7 @@ public class SingleInning
     }
 
     public void newGame() {
-        System.out.println("Play ball!");
+
         int batterPos = -1; //which batter up
         int batterPos2 = 0; //determines end of order
         int arm = (int) (Math.random()*50) + 51;
@@ -53,7 +55,7 @@ public class SingleInning
 
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("On the mound: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
-        while(totalOuts<100) {
+        while(totalOuts<3) {
             if(batterPos>7) {
                 batterPos = 0;
                 batterPos2++;
@@ -69,10 +71,10 @@ public class SingleInning
                 if(nameChecker == 0) {
                     Scanner name = new Scanner(System.in);
                     System.out.println("Batter " + (batterPos + 1) + " name? ");
-                Javier = new Batter(hit, pwr, spd, name.next());
-            } else {
-                Javier = new Batter(hit, pwr, spd, namer[batterPos]);
-            }
+                    Javier = new Batter(hit, pwr, spd, name.next());
+                } else {
+                    Javier = new Batter(hit, pwr, spd, namer[batterPos]);
+                }
                 order.add(Javier);
             } else {
                 System.out.println(batterPos);
@@ -80,9 +82,7 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-            if(runners[1].equals("X") && runners[2].equals("O")) {
-                System.out.print("");
-            }
+
             if(runners[0].equals("X") && runners[1].equals("O")) {
                 int temp = batterPos;
                 if(temp == 0) {
@@ -153,7 +153,11 @@ public class SingleInning
 
             }
         }
-        System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
+        if(gameChecker == 0) {
+            System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
+        } else {
+            System.out.println("Inning over!");
+        }
     }
 
     public void steal(Batter b, Pitcher p) {
@@ -282,7 +286,7 @@ public class SingleInning
         int balls=0;
         int pitch = 0;
         int pitches = 0;
-        
+
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -370,9 +374,7 @@ public class SingleInning
 
             System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
-
         }
-
         if(strikes == 3) {
             System.out.println("Strikeout");
             //totalOuts++;
@@ -473,6 +475,6 @@ public class SingleInning
         System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
     }
-    
+
 }
 
