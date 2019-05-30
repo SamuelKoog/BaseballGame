@@ -6,7 +6,7 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
-
+    private int gameChecker = 0;
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
     private int nameChecker = 0; //checks if names are automated
@@ -15,7 +15,9 @@ public class SingleInning
         totalOuts = 0;
         runs = 0;
     }
-
+    public void gameChecker() {
+        gameChecker = 1;
+    }
     public int getOuts() {
         return totalOuts;
     }
