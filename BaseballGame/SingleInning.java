@@ -6,11 +6,11 @@ public class SingleInning
     private int[][] grid;
     private int totalOuts;
     private int runs = 0;
-<<<<<<< HEAD
+
     private int runner = 0;
-=======
+
     private int gameChecker = 0;
->>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
+
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
     private int nameChecker = 0; //checks if names are automated
@@ -37,7 +37,7 @@ public class SingleInning
     public void name() {
         Scanner names = new Scanner(System.in);
         System.out.println("Name batters automatically?");
-        if((names.next()).equals("Yes")) {
+        if((names.next()).toUpperCase().equals("YES")) {
             namer[0] = "Christian Yelich";
             namer[1] = "Cody Bellinger";
             namer[2] = "Nolan Arenado";
@@ -50,16 +50,21 @@ public class SingleInning
             nameChecker = 1;
         }
     }
-
+    public String[] getOrder() {
+        return namer;
+    }
+    public void changeOrder(String[] namero) {
+        namer = namero;
+    }
+    public void namerCheck() {
+        nameChecker = 1;
+    }
     public void newGame() {
-<<<<<<< HEAD
-        System.out.println("Play ball!");
 
-=======
 
         int batterPos = -1; //which batter up
         int batterPos2 = 0; //determines end of order
->>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
+
         int arm = (int) (Math.random()*50) + 51;
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
@@ -93,27 +98,24 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: " + Javier.getName() + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-<<<<<<< HEAD
+
             if(runners[0].equals("X") && runners[1].equals("O") && runners[2].equals("O")) { //runners on 2nd only
-=======
 
-            if(runners[0].equals("X") && runners[1].equals("O")) {
->>>>>>> ace16e72a7c471257a2fbe5e1da3524a8e0c5d74
-                int temp = batterPos;
-                int outs = getOuts();
+                if(runners[0].equals("X") && runners[1].equals("O")) {
+                    int temp = batterPos;
+                    int outs = getOuts();
 
-                
-                System.out.println("Steal base?");
-                Scanner steal = new Scanner(System.in);
-                String choice = steal.next();
-                if(choice.toUpperCase().equals("YES")) {
+                    System.out.println("Steal base?");
+                    Scanner steal = new Scanner(System.in);
+                    String choice = steal.next();
+                    
+                    if(choice.toUpperCase().equals("YES")) {
 
-                    steal(order.get(runner), Lester);
+                        steal(order.get(runner+1), Lester);
 
+                    }
                 }
             }
-
-
             //URGENT picked off to 3 outs doesnt end game instantly
             String result = atBat(Lester, Javier);
             if(result.equals("out")) {
@@ -168,12 +170,14 @@ public class SingleInning
                 runners[0] = "X";
 
             }
+
+            
         }
         if(gameChecker == 0) {
-            System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
-        } else {
-            System.out.println("Inning over!");
-        }
+                System.out.println("Good Game! You Scored: " + runs + " run(s) in a single inning!");
+            } else {
+                System.out.println("Inning over!");
+            }
     }
 
     public void steal(Batter b, Pitcher p) {
@@ -210,6 +214,7 @@ public class SingleInning
         }
         printField();
         System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
+
     }
 
     public void single() {
@@ -327,8 +332,8 @@ public class SingleInning
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
             System.out.println(pitch);
-            System.out.println("Chances of hitting ball in each location: ");
-            
+            System.out.println("Chances of hitting ball in each location (20% chance of Ball) : ");
+
             if(hiddenLocation(pitchX, pitchY) == 1){
                 printDiagram();
             }
@@ -480,82 +485,81 @@ public class SingleInning
     }
 
     public void printDiagram(){
-        
-            System.out.println("|     |     |     |");
-            System.out.println("| 25% | 25% | 0%  |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 25% | 25% | 0%  |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 0%  | 0%  |");
-            System.out.println("|     |     |     |");
-        
+
+        System.out.println("|     |     |     |");
+        System.out.println("| 20% | 20% | 0%  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 20% | 20% | 0%  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 0%  | 0%  |");
+        System.out.println("|     |     |     |");
+
     }
-    
+
     public void printDiagram2(){
-        
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 25% | 25% |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 25% | 25% |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 0%  | 0%  |");
-            System.out.println("|     |     |     |");
-        
+
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 20% | 20% |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 20% | 20% |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 0%  | 0%  |");
+        System.out.println("|     |     |     |");
+
     }
-    
+
     public void printDiagram3(){
-        
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 0%  | 0%  |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 25% | 25% | 0%  |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 25% | 25% | 0%  |");
-            System.out.println("|     |     |     |");
-        
+
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 0%  | 0%  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 20% | 20% | 0%  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 20% | 20% | 0%  |");
+        System.out.println("|     |     |     |");
+
     }
-    
+
     public void printDiagram4(){
-        
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 0%  | 0%  |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 25% | 25% |");
-            System.out.println("|     |     |     |");
-            System.out.println("|-----------------|");
-            System.out.println("|     |     |     |");
-            System.out.println("| 0%  | 25% | 25% |");
-            System.out.println("|     |     |     |");
-        
+
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 0%  | 0%  |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 20% | 20% |");
+        System.out.println("|     |     |     |");
+        System.out.println("|-----------------|");
+        System.out.println("|     |     |     |");
+        System.out.println("| 0%  | 20% | 20% |");
+        System.out.println("|     |     |     |");
+
     }
 
     public void printDiagram1(){
         System.out.println("|     |     |     |");
         System.out.println("|  1  |  2  |  3  |");
         System.out.println("|     |     |     |");
-        System.out.println("|-----|-----|-----|");
+        System.out.println("|-----------------|");
         System.out.println("|     |     |     |");
         System.out.println("|  4  |  5  |  6  |");
         System.out.println("|     |     |     |");
-        System.out.println("|-----|-----|-----|");
+        System.out.println("|-----------------|");
         System.out.println("|     |     |     |");
         System.out.println("|  7  |  8  |  9  |");
         System.out.println("|     |     |     |");
     }
-
 }
 

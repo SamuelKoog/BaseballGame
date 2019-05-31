@@ -14,6 +14,7 @@ public class Game
             } else if(answer.toUpperCase().equals("FULL GAME")) {
                 correctCheck = 1;
                 FullGame game = new FullGame();
+                game.name();
                 System.out.println("Play Ball!");
                 game.newGame();
                 
