@@ -10,6 +10,7 @@ public class SingleInning
     private int stealHit = 0;
     private ArrayList<Batter> order = new ArrayList<Batter>(8);
 
+
     public SingleInning() {
         totalOuts = 0;
         runs = 0;
@@ -31,6 +32,7 @@ public class SingleInning
         int ctrl = (int) (Math.random()*50) + 51;
         int stf = 200 - arm - ctrl;
 
+       
         Pitcher Lester = new Pitcher(arm, ctrl, stf); //arm = 
         System.out.println("Opposing pitcher: Jon Lester (Arm = " + arm + ", Control = " + ctrl + ", Stuff = " + stf + ")");
         while(totalOuts<3) {
@@ -54,8 +56,8 @@ public class SingleInning
             }
             System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             System.out.println("At Bat: Javier Baez " + (batterPos+1) + " (Hit = " + Javier.getHit() + ", Power = " + Javier.getPwr() + ", Speed = " + Javier.getSpd() + ")");
-            if(runners[1].equals("X") && runners[2].equals("O")) {
-                System.out.print("");
+            if(runners[0].equals("X") && runners[1].equals("O")) {
+                
             }
             if(runners[0].equals("X") && runners[1].equals("O")) {
                 int temp = batterPos;
@@ -64,12 +66,13 @@ public class SingleInning
                 }
                 System.out.println("Steal base?");
                 Scanner steal = new Scanner(System.in);
-                String choic = steal.next();
-                if(choic.toUpperCase().equals("YES")) {
+                String choice = steal.next();
+                if(choice.toUpperCase().equals("YES")) {
                     steal(order.get(temp-1), Lester);
                 }
 
             }
+            //if(runners[1].equals
 
             //URGENT picked off to 3 outs doesnt end game instantly
 
@@ -77,7 +80,6 @@ public class SingleInning
             if(result.equals("out")) {
                 System.out.println("out");
                 totalOuts++;
-                System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
             } else if(result.equals("hit")) {
                 int type = (int) (Math.random()*(pwr+30));
                 int fly = (int) (Math.random()*100);
@@ -110,6 +112,7 @@ public class SingleInning
                 }
 
             } else if(result.equals("walk")) {
+
                 single();
 
                 System.out.println("Batter walked");
@@ -163,7 +166,7 @@ public class SingleInning
             }
         }
         printField();
-        System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
+                    System.out.println("Outs: " + totalOuts + " - Runs: " + runs);
     }
 
     public void single() {
@@ -254,9 +257,16 @@ public class SingleInning
     public String atBat(Pitcher Lester, Batter Javier) {
         int strikes=0;
         int balls=0;
+
         int pitch = 0;
-        int pitches = 0;
-        
+        while(strikes<3 && balls<4) {
+            int pitchX = (int) Math.random()*100;
+            int pitchY = (int) Math.random()*100;
+            if(pitchX < 20 || pitchX > 80 || pitchY < 20 || pitchY > 80) {   //if pitch is out of grid, which is from 20-80 in both x and y coordinates 
+                if((int) Math.random() * 100 + 1 < Lester.getCtrl()) {  //if the control 
+
+        int pitch;
+        int pitches=0;
         while(strikes<3 && balls<4) {
             int pitchX = (int) (Math.random()*100);
             int pitchY = (int) (Math.random()*100);
@@ -279,50 +289,33 @@ public class SingleInning
             pitches++;
             System.out.println("Pitch " + pitches);
             pitch = gridConversion(pitchX, pitchY);
-            System.out.println(pitch);
-            System.out.println("Batter eye: Sector " + hiddenLocation(pitchX, pitchY));
-            printDiagram();
+            System.out.println("Location " + pitch);
             /*int[] loc1 = {1, 2, 4, 5};
             int[] loc2 = {2, 3, 5, 6};
             int[] loc3 = {4, 5, 7, 8};
             int[] loc4 = {5, 6, 8, 9};
             if(pitch == 1){
-            pitch = loc1[((int)Math.random() * 4)];
+                pitch = loc1[((int)Math.random() * 4)];
             }else if(pitch == 2){
-            pitch = loc2[((int)Math.random() * 4)];
+                pitch = loc2[((int)Math.random() * 4)];
             }else if(pitch == 3){
-            pitch = loc3[((int)Math.random() * 4)];
+                pitch = loc3[((int)Math.random() * 4)];
             }else if(pitch == 4){
-            pitch = loc4[((int)Math.random() * 4)];
+                pitch = loc4[((int)Math.random() * 4)];
             }*/
-
+            
             Scanner swing = new Scanner(System.in);
             System.out.println("Swing? ");
             String choice = swing.next();
             if(choice.toUpperCase().equals("YES")) {
                 System.out.println("Where? ");
-                printDiagram1();
+                printDiagram();
                 int loc = swing.nextInt();
                 if(loc < 1 || loc > 9){
                     System.out.println("Invalid location. choose a number 1-9");
                 }
                 else if(loc == pitch){
-                    int hita = Javier.getHit();
-                    int stfa = Lester.getStf();
-                    double chances = Math.random()*(((double) hita) / stfa); 
-                    if(0.3 <= chances) {
-                        return "hit";
-                    } else if(0.15 <= chances) {
-                        System.out.println("Foul ball!");
-                        if(strikes<2) {
-                            strikes++;
-                        }
-                    } else {
-                        System.out.println("Pop out!");
-                        totalOuts++;
-                        return "";
-                    }
-
+                    return "hit";
                 } else if(loc != pitch) {
                     System.out.println("strike");
                     strikes++;
@@ -344,8 +337,12 @@ public class SingleInning
 
             System.out.println("Current Count: Strikes: " + strikes + " - Balls: " + balls);
 
+            System.out.println("Current: Strikes: " + strikes + " - Balls: " + balls);
+
 
         }
+
+        return "Batting Over";
 
         if(strikes == 3) {
             System.out.println("Strikeout");
@@ -356,56 +353,53 @@ public class SingleInning
 
     }
 
-    public int hiddenLocation(int pitchX, int pitchY){
-        int px = pitchX;
-        int py = pitchY;
-        int pitchLoc = 0;
-        if((px >= 0 && px < 50) && (py >= 0 && py < 50)){
-            return 1;
-        }
-        else if((px >= 50 && px < 100) && (py >= 50 && py < 100)){
-            return 4;
-        }
-        else if((px >= 50 && px < 100) && (py >= 0 && py < 50)){
-            return 2;
-        }
-        else if((px >= 0 && px < 50) && (py >= 50 && py < 100)){
-            return 3;
-        }
-        return 0;
-    }
-
     public int gridConversion(int pitchX, int pitchY){
         int px = pitchX;
         int py = pitchY;
         int pitchLoc = 0;
-        if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
-            return 1;
+        /*if((px >= 20 && px < 40) && (py >= 20 && py < 40)){
+        return 1;
         }
         else if((px >= 40 && px < 60) && (py >= 20 && py < 40)){
-            return 2;
+        return 2;
         }
         else if((px >= 60 && px < 80) && (py >= 20 && py < 40)){
-            return 3;
+        return 3;
         }
         else if((px >= 20 && px < 40) && (py >= 40 && py < 60)){
-            return 4;
+        return 4;
         }
         else if((px >= 40 && px < 60) && (py >= 40 && py < 60)){
-            return 5;
+        return 5;
         }
         else if((px >= 60 && px < 80) && (py >= 40 && py < 60)){
-            return 6;
+        return 6;
         }
         else if((px >= 20 && px < 40) && (py >= 60 && py <= 80)){
-            return 7;
+        return 7;
         }
         else if((px >= 20 && px < 60) && (py >= 60 && py <= 80)){
-            return 8;
+        return 8;
         }
         else if ((px >= 60 && px < 80) && (py >= 60 && py <= 80)){
-            return 9;
+        return 9;
         } else {
+        return 0; //ball
+        }*/
+
+        if((px >= 20 && px < 50) && (py >= 20 && py < 50)){
+            return 1;
+        }
+        else if((px >= 50 && px < 80) && (py >= 20 && py < 50)){
+            return 2;
+        }
+        else if((px >= 20 && px < 50) && (py >= 50 && py < 80)){
+            return 3;
+        }
+        else if((px >= 50 && px < 80) && (py >= 50 && py < 80)){
+            return 4;
+        }
+        else {
             return 0; //ball
         }
     }
@@ -424,19 +418,6 @@ public class SingleInning
 
     public void printDiagram(){
         System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|-----1-----2-----|");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|-----3-----4-----|");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-        System.out.println("|     |     |     |");
-    }
-
-    public void printDiagram1(){
-        System.out.println("|     |     |     |");
         System.out.println("|  1  |  2  |  3  |");
         System.out.println("|     |     |     |");
         System.out.println("|-----|-----|-----|");
@@ -447,6 +428,5 @@ public class SingleInning
         System.out.println("|     |     |     |");
         System.out.println("|     |     |     |");
     }
-    
 }
 
